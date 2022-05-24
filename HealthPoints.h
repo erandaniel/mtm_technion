@@ -7,27 +7,134 @@ class HealthPoints
 {
 
 public:
-    HealthPoints(const int maxHp = DEFAULT_MAX_HP);
 
-    HealthPoints& operator+=(const HealthPoints& hpToAdd);
-    HealthPoints& operator-=(const HealthPoints& hpToSubtract);
+    /**
+     * C'tor of HealthPoints class
+     *
+     * @param maxHp - The maximum HP (and the current HP)
+     * @return
+     *      A new instance of HealthPoints
+     */
+    explicit HealthPoints(const int maxHp = DEFAULT_MAX_HP);
 
-    //must be 'friend' to access values inside
-    friend bool operator==(const HealthPoints& object1, const HealthPoints& object2);
-    friend bool operator>(const HealthPoints& object1, const HealthPoints& object2);
+    /**
+     *
+     * Addition and assignment operator of HealthPoints class
+     *
+     * @param hpToAdd - the amount of HP that will be added to HealthPoints
+     * @return
+     *      A reference to HealthPoints object
+     */
+    HealthPoints &operator+=(const HealthPoints &hpToAdd);
+
+    /**
+     *
+     * Subtraction and assignment operator of HealthPoints class
+     *
+     * @param hpToSubtract - the amount of HP that will be subtracted from HealthPoints
+     * @return
+     *      A reference to HealthPoints object
+     */
+    HealthPoints &operator-=(const HealthPoints &hpToSubtract);
+
+    /**
+     * 'Equal To' operator of HealthPoints class
+     *
+     * @param object1 - the object we want to compare to
+     * @param object2 - the object we want compared
+     * @return
+     *      true - if objects are equal, false - if object are different
+     */
+    friend bool operator==(const HealthPoints &object1, const HealthPoints &object2);
+
+    /**
+     * 'Greater-than' operator of HealthPoints class
+     *
+     * @param object1 - the object we want to compare to
+     * @param object2 - the object we want compared
+     * @return
+     *      true - if object1 is greater than object2
+     *      false - if object1 is not greater than object2
+     */
+    friend bool operator>(const HealthPoints &object1, const HealthPoints &object2);
+
+    /**
+     * 'Stream-insertion' operator of HealthPoints class
+     * 
+     * @param output - stream to send
+     * @param hp - hp to send to ostream
+     * @return  
+     *      A reference to std::ostream after it has been changed
+     */
+    friend std::ostream &operator<<(std::ostream output, const HealthPoints &hp);
     
-    friend std::ostream& operator<<(std::ostream output, const HealthPoints& hp);
+    class InvalidArgument{};
 
 private:
     int m_hp;
     int m_maxHp;
 };
-//no need to be in HealthPoints because uses += and -= operators
-HealthPoints& operator+(const HealthPoints& object1, const HealthPoints& object2);
-HealthPoints& operator-(const HealthPoints& object1, const HealthPoints& object2);
 
-//no need to be in HealthPoints because uses == and > operators
-bool operator!=(const HealthPoints& object1, const HealthPoints& object2);
-bool operator>=(const HealthPoints& object1, const HealthPoints& object2);
-bool operator<=(const HealthPoints& object1, const HealthPoints& object2);
-bool operator<(const HealthPoints& object1, const HealthPoints& object2);
+/**
+ * 'Addition' operator of HealthPoints class
+ * 
+ * @param object1 - first object we want to add
+ * @param object2 - second object we want to add
+ * @return 
+ *      A reference to HealthPoints object(sum of other two)
+ */
+HealthPoints &operator+(const HealthPoints &object1, const HealthPoints &object2);
+
+/**
+ * 'Subtraction' operator of HealthPoints class
+ * 
+ * @param object1 - object we want to subtract from
+ * @param object2 - object we want to subtract from first object
+ * @return 
+ *      A reference to HealthPoints object(what's left from the subtraction)
+ */
+
+HealthPoints &operator-(const HealthPoints &object1, const HealthPoints &object2);
+
+/**
+ * 'Not-equal-to' operator of HealthPoints class
+ *
+ * @param object1 - the object we want to compare to
+ * @param object2 - the object we want compared
+ * @return
+ *      true - if objects are different, false - if object are equal
+ */
+bool operator!=(const HealthPoints &object1, const HealthPoints &object2);
+
+/**
+ * 'Greater-than or Equal-to' operator of HealthPoints class
+ *
+ * @param object1 - the object we want to compare to
+ * @param object2 - the object we want compared
+ * @return
+ *      true - if object1 is greater than or equal to object2
+ *      false - if object1 is not greater than nor is equal object2
+ */
+bool operator>=(const HealthPoints &object1, const HealthPoints &object2);
+
+/**
+ * 'Less-than or Equal-to' operator of HealthPoints class
+ *
+ * @param object1 - the object we want to compare to
+ * @param object2 - the object we want compared
+ * @return
+ *      true - if object1 is lesser than or equal to object2
+ *      false - if object1 is not lesser than nor is equal object2
+ */
+bool operator<=(const HealthPoints &object1, const HealthPoints &object2);
+
+/**
+ * 'Less-than' operator of HealthPoints class
+ *
+ * @param object1 - the object we want to compare to
+ * @param object2 - the object we want compared
+ * @return
+ *      true - if object1 is lesser than object2
+ *      false - if object1 is not lesser than object2
+ */
+bool operator<(const HealthPoints &object1, const HealthPoints &object2);
