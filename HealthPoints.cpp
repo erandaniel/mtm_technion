@@ -13,37 +13,38 @@ HealthPoints::HealthPoints(const int maxHp) :
 
     HealthPoints& HealthPoints::operator+=(const HealthPoints& object) 
     {
-        m_hp += object.m_hp;
-        if(m_hp > m_maxHp) 
+        this.m_hp += object.m_hp;
+        if(this.m_hp > m_maxHp) 
         {
-            m_hp = m_maxHp;
+            this.m_hp = m_maxHp;
         } 
         return *this;
     }
 
     HealthPoints& HealthPoints::operator-=(const HealthPoints& object)
     {
-        m_hp -= object.m_hp;
-        if(m_hp < 0)
+        this.m_hp -= object.m_hp;
+        if(this.m_hp < 0)
         {
-            m_hp = 0;
+            this.m_hp = 0;
         }
         return *this;
     }
-    //binary ops:
+
+
     HealthPoints& operator+(const HealthPoints& hp1, const HealthPoints& hp2)
     {
-        HealthPoints updatedHp = hp1;
-        return updatedHp += hp2; // using += op
+        HealthPoints tempHp = hp1;
+        return tempHp += hp2;
     }
 
     HealthPoints& operator-(const HealthPoints& hp1, const HealthPoints& hp2)
     {
-        HealthPoints updatedHp = hp1;
-        return updatedHp -= hp2; // using -= op
+        HealthPoints tempHp = hp1;
+        return tempHp -= hp2;
     }
 
-    //boolean ops:
+
     bool operator==(const HealthPoints& object1, const HealthPoints& object2)
     {
         return object1.m_hp == object2.m_hp;
