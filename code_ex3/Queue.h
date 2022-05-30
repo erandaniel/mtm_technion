@@ -44,6 +44,18 @@ public:
     Queue<T> &operator=(const Queue<T> &queue_to_copy);
 
     /**
+     * Gets iterator, the first node in the queue.
+     *
+     */
+    Queue<T> &begin();
+
+    /**
+     * Gets iterator, the last node in the queue.
+     *
+     */
+    Queue<T> &end();
+
+    /**
      * Adds a new instance to the end of the queue:
      *
      * @param lastInstance - the new instance that will be added to the end of the queue.
@@ -85,29 +97,29 @@ public:
     };
 
     /**
-     *  Iterator:
+     *  ConstIterator:
      *  Iterates over Queue's objects from the first node to the last node (FIFO).
      */
     template <class T>
-    class Iterator
+    class ConstIterator
     {
     public:
         const T &operator*() const;
         Itrator &operator++();
         Itrator operator++(int);
 
-        bool oprator == (const Iterator &itrator) const;
-        bool oprator != (const Iterator &itrator) const;
+        bool oprator == (const ConstIterator &itrator) const;
+        bool oprator != (const ConstIterator &itrator) const;
 
         /**
          * Here we are explicitly telling the compiler to use the default methods.
          */
-        Iterator(const Iterator &) = defualt;
-        Iterator &operator=(const Iterator &) = defualt;
+        ConstIterator(const ConstIterator &) = defualt;
+        ConstIterator &operator=(const ConstIterator &) = defualt;
 
         /**
          * InvalidOperation is an exeption, raises when the user is trying to do an
-         * illgal operation on the iterator pointing on the last not of the queue.
+         * illgal operation on the ConstIterator pointing on the last not of the queue.
          */
         class InvalidOperation
         {
@@ -120,7 +132,7 @@ public:
         bool m_isLast;
 
         // private constractor for encapsulation reasons.
-        Iterator(const Queue<T> *queue, int index);
+        ConstIterator(const Queue<T> *queue, int index);
         freind class Queue<T>;
     }
 };
@@ -150,7 +162,7 @@ Queue<T> &filter(const Queue<T> queue, Condition condition)
 {
     Queue<T> filteredQueue = new Queue<T>();
 
-    for (Queue<T>::Iterator it = this.begin(); it != this.end(); ++it)
+    for (Queue<T>::ConstIterator it = this.begin(); it != this.end(); ++it)
     {
         if (condition(it))
         {
@@ -264,6 +276,17 @@ Queue<T>::Queue(const Queue &queue_to_copy) : data(new T(queue_to_copy.data))
         throw;
     }
 }
+template <class T>
+Queue<T>::Queue<T> &begin() {
+    while(this.m_node.previos != nullptr){
+
+    }
+}
+
+template <class T>
+Queue<T>::Queue<T> &end() {
+    
+}
 
 // TODO: implement
 template <class T>
@@ -297,22 +320,22 @@ Queue<T> &Queue<T>::operator=(const Queue<T> &queue_to_copy)
 
 // TODO: implement
 template <class T>
-const T &Queue<T>::Iterator::operator*() const
+const T &Queue<T>::ConstIterator::operator*() const
 {
     if (this.isLast)
     {
-        throw Queue<T>::Iterator::InvalidOperation;
+        throw Queue<T>::ConstIterator::InvalidOperation;
     }
     return this->m_node;
 }
 
 // TODO: implement
 template <class T>
-Itrator &Queue<T>::Iterator::operator++()
+Itrator &Queue<T>::ConstIterator::operator++()
 {
     if (this.m_node.next == nullptr)
     {
-        throw Queue<T>::Iterator::InvalidOperation;
+        throw Queue<T>::ConstIterator::InvalidOperation;
     }
     this->m_node = this->m_node.next;
     return this;
@@ -320,16 +343,16 @@ Itrator &Queue<T>::Iterator::operator++()
 
 // TODO: implement
 template <class T>
-Itrator Queue<T>::Iterator::operator++(int) {}
+Itrator Queue<T>::ConstIterator::operator++(int) {}
 
 template <class T>
-    bool Queue<T>::Iterator::oprator == (const Iterator &itrator) const
+    bool Queue<T>::ConstIterator::oprator == (const ConstIterator &itrator) const
 {
     return this.m_node == itrator.m_node;
 }
 
 template <class T>
-    bool Queue<T>::Iterator::oprator != (const Iterator &itrator) const
+    bool Queue<T>::ConstIterator::oprator != (const ConstIterator &itrator) const
 {
     return !(this.m_node == itrator.m_node);
 }
