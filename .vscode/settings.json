@@ -1,3 +1,10 @@
 {
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "compare": "cpp",
+        "memory_resource": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp"
+    }
 }

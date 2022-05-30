@@ -3,15 +3,9 @@
 
 #include <stdio.h>
 
-template <class T>
-const T *FIRST_QUEUE_DEFUALT_VALUE = nullptr;
-
-template <class T>
-const T *NEXT_QUEUE_DEFUALT_VALUE = nullptr;
-
 const int INITIAL_QUEUE_SIZE = 0;
 
-/*
+/**
  *  Queue:
  *  A FIFO Data structures.
  */
@@ -21,34 +15,35 @@ class Queue
 private:
     T m_data;
     Queue<T> *m_next;
+    Queue<T> *m_previous;
     int m_size;
 
 public:
-    /*
+    /**
      * C'tor of Queue class.
      * Uses the defualt C'tor of the given m_data class (expected to be implemented).
      */
     Queue();
 
-    /*
+    /**
      * Copy C'tor of Queue class.
      *
      */
     Queue(const Queue<T> &queue_to_copy);
 
-    /*
+    /**
      * D'tor of Queue class.
      *
      */
     ~Queue();
 
-    /*
+    /**
      * Assignment operator  of Queue class.
      *
      */
     Queue<T> &operator=(const Queue<T> &queue_to_copy);
 
-    /*
+    /**
      * Adds a new instance to the end of the queue:
      *
      * @param lastInstance - the new instance that will be added to the end of the queue.
@@ -57,7 +52,7 @@ public:
      */
     void pushBack(const T &lastInstance);
 
-    /*
+    /**
      * Returns the first instance on the queue (the next instance to be poped):
      *
      * @return
@@ -65,7 +60,7 @@ public:
      */
     T &front() const;
 
-    /*
+    /**
      * remove the first instance on the queue:
      *
      * @return
@@ -73,7 +68,7 @@ public:
      */
     void popFront();
 
-    /*
+    /**
      * The current number of instances on the queue:
      *
      * @return
@@ -81,7 +76,7 @@ public:
      */
     int size() const;
 
-    /*
+    /**
      * EmptyQueue is an exeption, raises when the current queue is emtpy but the
      * user is trying to do an opration that is only possible on a non empty queues.
      */
@@ -89,7 +84,7 @@ public:
     {
     };
 
-    /*
+    /**
      *  Iterator:
      *  Iterates over Queue's objects from the first node to the last node (FIFO).
      */
@@ -104,13 +99,13 @@ public:
         bool oprator == (const Iterator &itrator) const;
         bool oprator != (const Iterator &itrator) const;
 
-        /*
+        /**
          * Here we are explicitly telling the compiler to use the default methods.
          */
         Iterator(const Iterator &) = defualt;
         Iterator &operator=(const Iterator &) = defualt;
 
-        /*
+        /**
          * InvalidOperation is an exeption, raises when the user is trying to do an
          * illgal operation on the iterator pointing on the last not of the queue.
          */
@@ -119,8 +114,10 @@ public:
         };
 
     private:
-        const Queue<T> *m_queue;
+        const Queue<T> *m_node;
         int m_index;
+        bool m_isFirst;
+        bool m_isLast;
 
         // private constractor for encapsulation reasons.
         Iterator(const Queue<T> *queue, int index);
@@ -128,7 +125,7 @@ public:
     }
 };
 
-/*
+/**
  * makes sure the current queue is not empty, if it is indeed empty raises an
  * EmptyQueue exeption.
  */
@@ -141,7 +138,7 @@ void makeSureQueueIsNotEmpty(const Queue<T> &queue)
     }
 }
 
-/*
+/**
  * Filters a given queue by a given condition:
  *
  * @param condition on witch the queue will be filtered by.
@@ -164,7 +161,7 @@ Queue<T> &filter(const Queue<T> queue, Condition condition)
     return &filteredQueue;
 }
 
-/*
+/**
  * Change a given queue by a given operation:
  *
  * @param operation on witch the queue will be chagned by.
@@ -176,6 +173,7 @@ void transform(const Queue<T> queue, Operaion operation);
 
 // START OF IMPLEMENTATION
 
+// TODO: implement
 template <class T>
 T &Queue<T>::front() const
 {
@@ -184,6 +182,7 @@ T &Queue<T>::front() const
     return this->m_data;
 }
 
+// TODO: implement
 template <class T>
 void Queue<T>::popFront()
 {
@@ -202,27 +201,21 @@ void Queue<T>::popFront()
     --this.m_size;
 }
 
+// TODO: implement
 template <class T>
 int Queue<T>::size() const
 {
     return this->m_size;
-
-    // int size = 0;
-    // for (Queue<T>::Iterator it = this.begin(); it != this.end(); ++it)
-    // {
-    //     ++size;
-    // }
-
-    // return size;
 }
 
+// TODO: implement
 template <class T>
 void Queue<T>::pushBack(const T &addedInstance)
 {
     if (this.size() == 0)
     {
         this->m_data = addedInstance;
-        this->m_next = NEXT_QUEUE_DEFUALT_VALUE;
+        this->m_next = nullptr;
         ++this.m_size;
         return;
     }
@@ -231,12 +224,13 @@ void Queue<T>::pushBack(const T &addedInstance)
 
     Queue<T> newLastNode = new Queue<T>;
     newLastNode->data = addedInstance;
-    newLastNode->next = NEXT_QUEUE_DEFUALT_VALUE;
+    newLastNode->next = nullptr;
 
     lastNode->next = newLastNode;
     ++this.m_size;
 }
 
+// TODO: implement
 template <class T>
 Queue<T>::Queue()
 {
@@ -245,16 +239,18 @@ Queue<T>::Queue()
     this->m_size = 0;
 }
 
+// TODO: implement
 template <class T>
 Queue<T>::~Queue()
 {
     delete this->data;
-    if (this->next != NEXT_QUEUE_DEFUALT_VALUE)
+    if (this->next != nullptr)
     {
         delete this->next;
     }
 }
 
+// TODO: implement
 template <class T>
 Queue<T>::Queue(const Queue &queue_to_copy) : data(new T(queue_to_copy.data))
 {
@@ -269,6 +265,7 @@ Queue<T>::Queue(const Queue &queue_to_copy) : data(new T(queue_to_copy.data))
     }
 }
 
+// TODO: implement
 template <class T>
 Queue<T> &Queue<T>::operator=(const Queue<T> &queue_to_copy)
 {
@@ -297,6 +294,44 @@ Queue<T> &Queue<T>::operator=(const Queue<T> &queue_to_copy)
 
     return *this;
 }
+
+// TODO: implement
+template <class T>
+const T &Queue<T>::Iterator::operator*() const
+{
+    if (this.isLast)
+    {
+        throw Queue<T>::Iterator::InvalidOperation;
+    }
+    return this->m_node;
+}
+
+// TODO: implement
+template <class T>
+Itrator &Queue<T>::Iterator::operator++()
+{
+    if (this.m_node.next == nullptr)
+    {
+        throw Queue<T>::Iterator::InvalidOperation;
+    }
+    this->m_node = this->m_node.next;
+    return this;
+}
+
+// TODO: implement
+template <class T>
+Itrator Queue<T>::Iterator::operator++(int) {}
+
+template <class T>
+    bool Queue<T>::Iterator::oprator == (const Iterator &itrator) const
+{
+    return this.m_node == itrator.m_node;
+}
+
+template <class T>
+    bool Queue<T>::Iterator::oprator != (const Iterator &itrator) const
+{
+    return !(this.m_node == itrator.m_node);
 }
 
 // END OF IMPLEMENTATION
