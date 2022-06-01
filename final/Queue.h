@@ -218,10 +218,10 @@ Queue<T>::Node::Node(T m_data, Node *next, Node *previous, bool isDummy) : m_dat
     this->m_next = next;
     this->m_previous = previous;
     this->m_isDummy = isDummy;
-};
+}
 
 template <class T>
-Queue<T>::Node::Node(T m_data) : m_data(m_data){};
+Queue<T>::Node::Node(T m_data) : m_data(m_data){}
 
 template <class T>
 Queue<T>::Node::Node(const Node &nodeToCopy)
@@ -230,7 +230,7 @@ Queue<T>::Node::Node(const Node &nodeToCopy)
     {
         this->m_data = T(nodeToCopy->m_data);
     }
-    catch (const std::bad_alloc &memoryExeption)
+    catch (const std::bad_alloc)
     {
         delete *this;
         throw;
@@ -239,7 +239,7 @@ Queue<T>::Node::Node(const Node &nodeToCopy)
     this->m_isDummy = nodeToCopy->m_isDummy;
     this->m_next = nodeToCopy->m_next;
     this->m_previous = nodeToCopy->m_next;
-};
+}
 
 template <class T>
 void Queue<T>::popFront()
@@ -270,7 +270,7 @@ void Queue<T>::pushBack(const T &addedInstance)
         newNode->m_next = m_lastNode->m_next;
         newNode->m_previous = m_lastNode;
     }
-    catch (const std::bad_alloc &memoryExeption)
+    catch (const std::bad_alloc)
     {
         delete this;
         throw;
@@ -368,7 +368,7 @@ Queue<T>::Queue(const Queue &queueToCopy)
             this->pushBack(it.m_currentNode->m_data);
         }
     }
-    catch (const std::bad_alloc &memoryExeption)
+    catch (const std::bad_alloc)
     {
         delete this;
         throw;
@@ -384,7 +384,7 @@ Queue<T> &Queue<T>::operator=(const Queue &queueToCopy)
         return *this;
     }
 
-    Queue<T> *tempQueue = new Queue<T>();
+    //Queue<T> *tempQueue = new Queue<T>();
 
     if (this->size() >= queueToCopy.size())
     {
@@ -402,10 +402,10 @@ Queue<T> &Queue<T>::operator=(const Queue &queueToCopy)
         {
             try
             {
-                Node *dummyNode = new Node(T(), nullptr, nullptr, true);
+                //Node *dummyNode = new Node(T(), nullptr, nullptr, true);
                 this->pushBack(T());
             }
-            catch (const std::bad_alloc &memoryExeption)
+            catch (const std::bad_alloc)
             {
                 delete &queueToCopy;
                 throw;
@@ -442,7 +442,7 @@ Queue<T> &filter(const Queue<T> &queue, Condition condition)
 
         return *filteredQueue;
     }
-    catch (const std::bad_alloc &memoryExeption)
+    catch (const std::bad_alloc)
     {
         throw;
     }
