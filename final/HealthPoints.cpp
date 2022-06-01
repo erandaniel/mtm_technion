@@ -9,9 +9,9 @@ HealthPoints::HealthPoints(const int maxHp) : m_hp(maxHp), m_maxHp(maxHp)
     }
 }
 
-HealthPoints &HealthPoints::operator+=(const HealthPoints &object)
+HealthPoints &HealthPoints::operator+=(const int hpToAdd)
 {
-    this->m_hp += object.m_hp;
+    this->m_hp += hpToAdd;
     if (this->m_hp > m_maxHp)
     {
         this->m_hp = m_maxHp;
@@ -19,9 +19,9 @@ HealthPoints &HealthPoints::operator+=(const HealthPoints &object)
     return *this;
 }
 
-HealthPoints &HealthPoints::operator-=(const HealthPoints &object)
+HealthPoints &HealthPoints::operator-=(const int hpToSubtract)
 {
-    this->m_hp -= object.m_hp;
+    this->m_hp -= hpToSubtract;
     if (this->m_hp < 0)
     {
         this->m_hp = 0;
@@ -29,16 +29,21 @@ HealthPoints &HealthPoints::operator-=(const HealthPoints &object)
     return *this;
 }
 
-HealthPoints &operator+(const HealthPoints &hp1, const HealthPoints &hp2)
+HealthPoints &HealthPoints::operator+(const int hpToAdd) const
 {
-    HealthPoints tempHp = hp1;
-    return tempHp += hp2;
+    HealthPoints tempHp = *this;
+    return tempHp += hpToAdd;
 }
 
-HealthPoints &operator-(const HealthPoints &hp1, const HealthPoints &hp2)
+HealthPoints &operator+(const in hpToAdd, const HealthPoints &object)
 {
-    HealthPoints tempHp = hp1;
-    return tempHp -= hp2;
+    return object + hpToAdd; //using +operator from above
+}
+
+HealthPoints &HealthPoints::operator-(const int hpToSubtract) const
+{
+    HealthPoints tempObject = *this;
+    return tempObject -= hpToSubtract;
 }
 
 bool operator==(const HealthPoints &object1, const HealthPoints &object2)
