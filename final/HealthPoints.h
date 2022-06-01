@@ -17,8 +17,11 @@ class HealthPoints
      * @return
      *      A new instance of HealthPoints
      */
-     HealthPoints(const int maxHp = DEFAULT_MAX_HP);
+    HealthPoints(const int maxHp = DEFAULT_MAX_HP);
 
+    HealthPoints(const HealthPoints&) = default;
+    ~HealthPoints() = default;
+    HealthPoints& operator=(const HealthPoints& other) = default;
     /**
      *
      * Addition and assignment operator of HealthPoints class
