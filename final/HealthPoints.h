@@ -1,7 +1,6 @@
 #ifndef HEALTH_POINTS_CPP_EX3
 #define HEALTH_POINTS_CPP_EX3
 
-
 #include <iostream>
 #include <string>
 
@@ -9,7 +8,7 @@ const int DEFAULT_MAX_HP = 100;
 
 class HealthPoints
 {
-    public:
+public:
     /**
      * C'tor of HealthPoints class
      *
@@ -19,9 +18,27 @@ class HealthPoints
      */
     HealthPoints(const int maxHp = DEFAULT_MAX_HP);
 
-    HealthPoints(const HealthPoints&) = default;
+    /**
+     * Default Copy-C'tor of HealthPoints class
+     * 
+     * @return
+     *      A new instance of HealthPoints
+     */
+    HealthPoints(const HealthPoints &) = default;
+    /**
+     * Default D'tor of HealthPoints class
+     * 
+     */
     ~HealthPoints() = default;
-    HealthPoints& operator=(const HealthPoints& other) = default;
+    /**
+     * Default assignment operator of HealthPoints class
+     * 
+     * @param other
+     * @return 
+     *      A reference to HealthPoints class
+     */
+    HealthPoints &operator=(const HealthPoints &other) = default;
+
     /**
      *
      * Addition and assignment operator of HealthPoints class
@@ -30,7 +47,16 @@ class HealthPoints
      * @return
      *      A reference to HealthPoints object
      */
-    HealthPoints &operator+=(const HealthPoints &hpToAdd);
+    HealthPoints &operator+=(const int hpToAdd);
+
+    /**
+     * 'Addition' operator of HealthPoints class. (order: object + hpToAdd)
+     *
+     * @param hpToAdd - the amount of HP that will be added to HealthPoints
+     * @return
+     *      A reference to HealthPoints object
+     */
+    HealthPoints &operator+(const int hpToAdd) const;
 
     /**
      *
@@ -40,7 +66,16 @@ class HealthPoints
      * @return
      *      A reference to HealthPoints object
      */
-    HealthPoints &operator-=(const HealthPoints &hpToSubtract);
+    HealthPoints &operator-=(const int hpToSubtract);
+
+    /**
+     * 'Subtraction' operator of HealthPoints class
+     *
+     * @param hpToSubtract - the amount of HP that will be subtracted from HealthPoints
+     * @return
+     *      A reference to HealthPoints object
+     */
+    HealthPoints &operator-(const int hpToSubtract) const;
 
     /**
      * 'Equal To' operator of HealthPoints class
@@ -50,6 +85,7 @@ class HealthPoints
      * @return
      *      true - if objects are equal, false - if object are different
      */
+
     friend bool operator==(const HealthPoints &object1, const HealthPoints &object2);
 
     /**
@@ -65,40 +101,21 @@ class HealthPoints
 
     /**
      * 'Stream-insertion' operator of HealthPoints class
-     * 
+     *
      * @param output - stream to send
      * @param hp - hp to send to ostream
-     * @return  
+     * @return
      *      A reference to std::ostream after it has been changed
      */
     friend std::ostream &operator<<(std::ostream &output, const HealthPoints &hp);
-    class InvalidArgument{};
+    class InvalidArgument
+    {
+    };
 
 private:
     int m_hp;
     int m_maxHp;
 };
-
-/**
- * 'Addition' operator of HealthPoints class
- * 
- * @param object1 - first object we want to add
- * @param object2 - second object we want to add
- * @return 
- *      A reference to HealthPoints object(sum of other two)
- */
-HealthPoints &operator+(const HealthPoints &object1, const HealthPoints &object2);
-
-/**
- * 'Subtraction' operator of HealthPoints class
- * 
- * @param object1 - object we want to subtract from
- * @param object2 - object we want to subtract from first object
- * @return 
- *      A reference to HealthPoints object(what's left from the subtraction)
- */
-
-HealthPoints &operator-(const HealthPoints &object1, const HealthPoints &object2);
 
 /**
  * 'Not-equal-to' operator of HealthPoints class
@@ -143,6 +160,14 @@ bool operator<=(const HealthPoints &object1, const HealthPoints &object2);
  */
 bool operator<(const HealthPoints &object1, const HealthPoints &object2);
 
-
+/**
+ * 'Addition' operator of HealthPoints class. (order: hpToAdd + object)
+ *
+ * @param hpToAdd - the amount of HP that will be added to HealthPoints
+ * @param object - a reference to the object whose hp will be combined with 'hpToAdd'
+ * @return
+ *      The sum
+ */
+HealthPoints operator+(int hpToAdd, const HealthPoints &object);
 
 #endif // QUEUE_CPP_EX3
