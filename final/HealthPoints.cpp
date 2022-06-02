@@ -34,7 +34,7 @@ HealthPoints& HealthPoints::operator+(const int hpToAdd)
     return *this += hpToAdd;
 }
 
-HealthPoints& operator+(const in hpToAdd, HealthPoints &object)
+HealthPoints& operator+(const int hpToAdd, HealthPoints &object)
 {
     return object += hpToAdd; //using += operator from above
 }
