@@ -56,7 +56,7 @@ public:
      * @return
      *      A reference to HealthPoints object
      */
-    HealthPoints &operator+(const int hpToAdd) const;
+    HealthPoints &operator+(const int hpToAdd);
 
     /**
      *
@@ -75,7 +75,7 @@ public:
      * @return
      *      A reference to HealthPoints object
      */
-    HealthPoints &operator-(const int hpToSubtract) const;
+    HealthPoints &operator-(const int hpToSubtract);
 
     /**
      * 'Equal To' operator of HealthPoints class
@@ -168,6 +168,6 @@ bool operator<(const HealthPoints &object1, const HealthPoints &object2);
  * @return
  *      The sum
  */
-HealthPoints operator+(int hpToAdd, const HealthPoints &object);
+HealthPoints operator+(int hpToAdd, HealthPoints &object);
 
 #endif // QUEUE_CPP_EX3
